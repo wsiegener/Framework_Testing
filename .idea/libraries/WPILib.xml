@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="WPILib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../wpilib/java/current/lib/WPILib.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../wpilib/java/current/lib/NetworkTables.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../wpilib/java/current/lib/WPILib-sources.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../wpilib/java/current/lib/WPILib-sources" />
+      <root url="jar://$PROJECT_DIR$/../../wpilib/java/current/lib/NetworkTables-sources.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../wpilib/java/current/lib/NetworkTables-sources" />
+    </SOURCES>
+  </library>
+</component>
