@@ -1,6 +1,4 @@
-package org.usfirst.frc.team4908;
-
-import edu.wpi.first.wpilibj.Encoder;
+package org.usfirst.frc.team4908.IO;
 
 /**
  * @author Siggy
@@ -13,5 +11,4 @@ public class SensorInput
     {
         return mInstance;
     }
-
 }

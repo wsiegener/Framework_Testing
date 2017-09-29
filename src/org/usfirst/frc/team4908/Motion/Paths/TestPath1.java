@@ -17,6 +17,8 @@ public class TestPath1
 
     Trajectory t = new Trajectory(5, r1, r2, r3, r4);
 
+    //TODO: pre generate setpoints so they can be looped over, without needing to be calculated on the fly
+
     public Trajectory getTrajectory()
     {
         return t;

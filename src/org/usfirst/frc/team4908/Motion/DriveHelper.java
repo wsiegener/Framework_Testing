@@ -1,7 +1,8 @@
 package org.usfirst.frc.team4908.Motion;
 
+import org.usfirst.frc.team4908.Util.Constants;
 import org.usfirst.frc.team4908.Motion.Trajectories.Trajectory;
-import org.usfirst.frc.team4908.OperatorInterface;
+import org.usfirst.frc.team4908.IO.OperatorInterface;
 
 /**
  * @author Siggy
@@ -43,7 +44,68 @@ public class DriveHelper
         if (rot < -1.0)
             rot = 1.0;
 
-        return new DriveCommand( x - rot, x + rot);
+        return new DriveCommand( x + rot, x - rot);
+    }
+
+
+    /**
+     * Does some voodoo witchcraft shit and makes turning super good at high speeds
+     * Doesnt work at low speeds so check for turn button to turn in place
+     */
+
+
+    public DriveCommand duxDrive()
+    {
+        double mThrottle, mRot;
+        double mLeft, mRight;
+        double overPower; // ????????????
+
+        mThrottle = OperatorInterface.getInstance().getDriverX();
+        mRot = OperatorInterface.getInstance().getDriverRot();
+
+        if(!OperatorInterface.getInstance().getTurnButton())
+        {
+            mRot *= (Math.abs(mThrottle) * Constants.kTurnSensitivity);
+            overPower = 0.0; //????????????
+        }
+        else
+        {
+            overPower = 1.0; //????????????
+        }
+
+        mLeft = mThrottle + mRot;
+        mRight = mThrottle - mRot;
+
+        /**
+         * so uhhh 254 does NOT use this skim value if they are NOT in quickTurn mode... they only use it when QTing
+         * all they do is limit the values to 1.0 or -1.0...
+         */
+
+        if(mLeft >= 1.0)
+        {
+            mRight -= (mLeft - 1.0) * overPower; //?? ???  ?????????
+            mLeft = 1.0;
+        }
+        else if(mLeft <= -1.0)
+        {
+            mRight += (mLeft + 1.0) * overPower; //?            ????????
+            mLeft = -1.0;
+        }
+
+
+        if(mRight >= 1.0)
+        {
+            mLeft -= (mRight - 1.0) * overPower; //???????????
+            mRight = 1.0;
+        }
+        else if(mRight <= -1.0)
+        {
+            mLeft += (mRight + 1.0) * overPower; //>>>>!>!>?!!?!???!?
+            mRight = -1.0;
+        }
+
+
+        return new DriveCommand(mLeft, mRight);
     }
 
     /**

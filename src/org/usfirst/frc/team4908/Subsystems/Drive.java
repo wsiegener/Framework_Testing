@@ -2,15 +2,12 @@ package org.usfirst.frc.team4908.Subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.CounterBase;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SerialPort;
-import org.usfirst.frc.team4908.Constants;
+import org.usfirst.frc.team4908.Util.Constants;
 import org.usfirst.frc.team4908.Motion.DriveCommand;
 import org.usfirst.frc.team4908.Motion.DriveHelper;
 import org.usfirst.frc.team4908.Motion.Paths.TestPath1;
-import org.usfirst.frc.team4908.Motion.Trajectories.Util;
-import org.usfirst.frc.team4908.OperatorInterface;
+import org.usfirst.frc.team4908.IO.OperatorInterface;
 
 /**
  * @author Siggy
@@ -19,12 +16,12 @@ import org.usfirst.frc.team4908.OperatorInterface;
 public class Drive extends Subsystem
 {
     // Instances
-    public static Drive mInstance = new Drive();
+    private static Drive mInstance = new Drive();
     public static Drive getInstance()
     {
         return mInstance;
     }
-    public DriveHelper mDriveHelper;
+    private DriveHelper mDriveHelper;
 
     // Control States
     public enum DriveState
@@ -34,7 +31,7 @@ public class Drive extends Subsystem
         PATH_FOLLOWING,
         ROTATE_TO_ANGLE
     }
-    public static DriveState mDriveState;
+    private static DriveState mDriveState;
 
     // hardware
     private final CANTalon mLeftMaster, mRightMaster, mLeftSlave, mRightSlave;
@@ -152,6 +149,12 @@ public class Drive extends Subsystem
     public void interrupt()
     {
         mDriveState = DriveState.NEUTRAL;
+    }
+
+
+    public DriveState getDriveState()
+    {
+        return mDriveState;
     }
 
 

@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4908;
+package org.usfirst.frc.team4908.Util;
 
 /**
  * @author Siggy
@@ -35,6 +35,8 @@ public class Constants
     public static final double kRotationProfileKF = 0.0;
     public static final double kRotationErrorMin = 1.0;
 
+    public static final double kTurnSensitivity = 0.5;
+
 
     // TODO: fix ports
 
@@ -44,6 +46,9 @@ public class Constants
 
     public static final double kDriveXDeadzone = 0.01;
     public static final double kDriveRotDeadzone = 0.01;
+
+    // Values
+    public static final byte kArduinoI2CAddress = 0x01;
 
 
 }

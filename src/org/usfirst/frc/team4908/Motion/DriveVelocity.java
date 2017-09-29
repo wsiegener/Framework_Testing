@@ -1,6 +1,6 @@
 package org.usfirst.frc.team4908.Motion;
 
-import org.usfirst.frc.team4908.Constants;
+import org.usfirst.frc.team4908.Util.Constants;
 
 /**
  * @author Siggy

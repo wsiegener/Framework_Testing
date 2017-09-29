@@ -1,6 +1,7 @@
-package org.usfirst.frc.team4908;
+package org.usfirst.frc.team4908.IO;
 
 import edu.wpi.first.wpilibj.Joystick;
+import org.usfirst.frc.team4908.Util.Constants;
 
 /**
  * @author Siggy
@@ -43,7 +44,7 @@ public class OperatorInterface
         return (mDriverStick.getRawAxis(0) >= Constants.kDriveXDeadzone || mDriverStick.getRawAxis(1) >= Constants.kDriveRotDeadzone);
     }
 
-    public boolean getVelocityButton()
+    public boolean getTurnButton()
     {
         return mDriverStick.getRawButton(1);
     }
@@ -57,7 +58,6 @@ public class OperatorInterface
     {
         return mDriverStick.getRawButton(3);
     }
-
 
     // operator commands
 
