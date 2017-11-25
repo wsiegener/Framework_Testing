@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4908.Motion.Trajectories;
 
+import java.util.ArrayList;
+
 /**
  * @author Siggy
  *         $
@@ -9,16 +11,16 @@ public class Spline
     private String type;
     private int degree;
 
-    private ReferencePoint[] positionPoints;
-    private ReferencePoint[] velocityPoints;
+    private ArrayList<ReferencePoint> positionPoints;
+    private ArrayList<ReferencePoint> velocityPoints;
 
     private double sIncrement;
 
-    public Spline(double totalTime, ReferencePoint[] referencePoints)
+    public Spline(double totalTime, ArrayList<ReferencePoint> referencePoints)
     {
         this.sIncrement = 1.0/(totalTime * 50.0);
 
-        switch (referencePoints.length)
+        switch (referencePoints.size())
         {
             case 2:
                 type = "Linear";
@@ -37,13 +39,14 @@ public class Spline
         }
 
 
-        degree = referencePoints.length - 1;
+        degree = referencePoints.size() - 1;
         positionPoints = referencePoints;
-        velocityPoints = new ReferencePoint[degree];
+        velocityPoints = new ArrayList<>();
 
-        for(int i = 0; i < velocityPoints.length; i++)
+        for(int i = 0; i < positionPoints.size()-1; i++)
         {
-            velocityPoints[i] = new ReferencePoint(positionPoints[i+1].getX()-positionPoints[i].getX(),positionPoints[i+1].getY()-positionPoints[i].getY());
+            velocityPoints.add(new ReferencePoint(positionPoints.get(i+1).getX()-positionPoints.get(i).getX(),
+                                                    positionPoints.get(i+1).getY()-positionPoints.get(i).getY()));
         }
     }
 
@@ -53,7 +56,7 @@ public class Spline
 
         for(int v = 0; v <= degree; v++)
         {
-            sum += Util.bernstein(degree, v, s) * positionPoints[v].getX();
+            sum += Util.bernstein(degree, v, s) * positionPoints.get(v).getX();
         }
 
         return sum;
@@ -65,7 +68,7 @@ public class Spline
 
         for(int v = 0; v <= degree; v++)
         {
-            sum += Util.bernstein(degree, v, s) * positionPoints[v].getY();
+            sum += Util.bernstein(degree, v, s) * positionPoints.get(v).getY();
         }
 
         return sum;
@@ -77,7 +80,7 @@ public class Spline
 
         for(int v = 0; v < degree; v++) // non inclusive because vPoints always has 1 less element
         {
-            sum += Util.bernstein(degree-1, v, s) * velocityPoints[v].getX();
+            sum += Util.bernstein(degree-1, v, s) * velocityPoints.get(v).getX();
         }
 
         return degree*sum;
@@ -89,7 +92,7 @@ public class Spline
 
         for(int v = 0; v < degree; v++) // non inclusive because vPoints always has 1 less element
         {
-            sum += Util.bernstein(degree-1, v, s) * velocityPoints[v].getY();
+            sum += Util.bernstein(degree-1, v, s) * velocityPoints.get(v).getY();
         }
 
         return degree*sum;

@@ -37,6 +37,12 @@ public class Constants
 
     public static final double kTurnSensitivity = 0.5;
 
+    public static final double kInchesPerPulse = 0.0;
+
+    public static final double kTrackWidth = 30.0;
+
+    public static final double kWheelCircumference = 8.0; // TODO: fix this
+
 
     // TODO: fix ports
 

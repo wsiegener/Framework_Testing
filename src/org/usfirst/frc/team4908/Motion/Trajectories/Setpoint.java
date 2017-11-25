@@ -1,4 +1,5 @@
 package org.usfirst.frc.team4908.Motion.Trajectories;
+
 import java.text.DecimalFormat;
 
 /**

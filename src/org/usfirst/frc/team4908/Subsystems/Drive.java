@@ -82,7 +82,7 @@ public class Drive extends Subsystem
     @Override
     public void loop()
     {
-        if(OperatorInterface.getInstance().joysticksMoving() && mDriveState != DriveState.OPEN_LOOP)
+        if(OperatorInterface.getInstance().joysticksMoving() && mDriveState != DriveState.OPEN_LOOP && !OperatorInterface.getInstance().getPathModeButton())
         {
             mDriveState = DriveState.OPEN_LOOP;
             configTalonsOpenLoopMode();
@@ -117,7 +117,10 @@ public class Drive extends Subsystem
             case PATH_FOLLOWING:
             {
                 setMotors(mDriveHelper.followPath(mCurrentIndex, path1.getTrajectory()));
-                if(mCurrentIndex >= path1.getTrajectory().getSetpoints().size())
+
+                //TODO: add the crazy funky shit that makes it cool or something
+
+                if(mCurrentIndex > path1.getTrajectory().getSetpoints().size())
                 {
                     mCurrentIndex = 0;
                     mDriveState = DriveState.NEUTRAL;
@@ -196,13 +199,11 @@ public class Drive extends Subsystem
         mRightMaster.changeControlMode(CANTalon.TalonControlMode.Speed);
         mLeftMaster.changeControlMode(CANTalon.TalonControlMode.Speed);
 
-        // sets various encoder values
-        mRightMaster.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-        mLeftMaster.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+        // sets various encoder values RELATIVE ENCODERS TAKE IN SPEED IN RPMs
+        mRightMaster.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
+        mLeftMaster.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
         mRightMaster.reverseSensor(false);
         mLeftMaster.reverseSensor(true);
-        mRightMaster.configEncoderCodesPerRev(-1);
-        mLeftMaster.configEncoderCodesPerRev(-1);
 
         // configures peak and nominal voltages
         mRightMaster.configNominalOutputVoltage(+0.0f, -0.0f);
@@ -240,4 +241,25 @@ public class Drive extends Subsystem
         // configures the error tolerance
         mRightMaster.setAllowableClosedLoopErr((int)Constants.kRotationErrorMin);
     }
+
+    public double getLeftVelocity()
+    {
+        return mLeftMaster.getEncVelocity();
+    }
+
+    public double getRightVelocity()
+    {
+        return mRightMaster.getEncVelocity();
+    }
+
+    public double getLeftDistanceInches()
+    {
+        return mLeftMaster.getEncPosition() * Constants.kInchesPerPulse; // TODO: FIll this val correctly
+    }
+
+    public double getRightDistanceInches()
+    {
+        return mRightMaster.getEncPosition() * Constants.kInchesPerPulse; // TODO: FIll this val correctly
+    }
+
 }

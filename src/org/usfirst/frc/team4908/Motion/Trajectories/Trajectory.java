@@ -1,4 +1,5 @@
 package org.usfirst.frc.team4908.Motion.Trajectories;
+
 import java.util.ArrayList;
 
 /**
@@ -9,11 +10,15 @@ public class Trajectory
 {
     private Spline spline1;
     private ArrayList<Setpoint> setPoints;
+    private ArrayList<ReferencePoint> referencePoints;
     private double sIncrement;
 
-    public Trajectory(double time, ReferencePoint... refPoints)
+    public Trajectory(double time, ArrayList<ReferencePoint> refPoints)
     {
-        spline1 = new Spline(time, refPoints);
+        referencePoints = new ArrayList<>();
+        referencePoints = refPoints;
+
+        spline1 = new Spline(time, referencePoints);
 
         sIncrement =  1.0/(time * 50.0);
 
@@ -38,5 +43,10 @@ public class Trajectory
     public ArrayList<Setpoint> getSetpoints()
     {
         return setPoints;
+    }
+
+    public ArrayList<ReferencePoint> getReferencePoints()
+    {
+        return referencePoints;
     }
 }

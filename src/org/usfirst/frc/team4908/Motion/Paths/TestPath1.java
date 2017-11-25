@@ -3,6 +3,7 @@ package org.usfirst.frc.team4908.Motion.Paths;
 import org.usfirst.frc.team4908.Motion.Trajectories.ReferencePoint;
 import org.usfirst.frc.team4908.Motion.Trajectories.Trajectory;
 
+import java.util.ArrayList;
 
 /**
  * @author Siggy
@@ -10,14 +11,20 @@ import org.usfirst.frc.team4908.Motion.Trajectories.Trajectory;
  */
 public class TestPath1
 {
-    ReferencePoint r1 = new ReferencePoint(0.0, 0.0);
-    ReferencePoint r2 = new ReferencePoint(0.0, 4.0);
-    ReferencePoint r3 = new ReferencePoint(8.0, 4.0);
-    ReferencePoint r4 = new ReferencePoint(8.0, 8.0);
+    ArrayList<ReferencePoint> rp;
+    Trajectory t;
 
-    Trajectory t = new Trajectory(5, r1, r2, r3, r4);
+    public TestPath1()
+    {
+        rp = new ArrayList<>();
 
-    //TODO: pre generate setpoints so they can be looped over, without needing to be calculated on the fly
+        rp.add(new ReferencePoint(0.0, 0.0));
+        rp.add(new ReferencePoint(0.0, 4.0));
+        rp.add(new ReferencePoint(8.0, 4.0));
+        rp.add(new ReferencePoint(8.0, 8.0));
+
+        t = new Trajectory(5, rp);
+    }
 
     public Trajectory getTrajectory()
     {

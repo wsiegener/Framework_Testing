@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import org.usfirst.frc.team4908.Subsystems.Drive;
 import org.usfirst.frc.team4908.Util.Constants;
-import sun.tools.jstat.Operator;
 
 /**
  * @author Siggy
@@ -34,8 +33,6 @@ public class ArduinoComms
     private final int PATH_MODE     = 3; // etc.
 
     private final int ENABLED = 7; // MSB signifies if the robot is enabled or disabled
-
-
 
     public ArduinoComms()
     {

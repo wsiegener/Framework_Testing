@@ -51,4 +51,37 @@ public class Util
     {
         return binoCoef(n, v)*Math.pow(s, v)*Math.pow((1-s), n-v);
     }
+
+
+    /**
+     * Calculates the left and right wheel values using inverse kinematics
+     *
+     *
+     */
+
+    public class DriveState
+    {
+        double leftWheel;
+        double rightWheel;
+
+        public DriveState(double leftWheel, double rightWheel)
+        {
+            this.leftWheel = leftWheel;
+            this.rightWheel = rightWheel;
+        }
+    }
+
+
+    public DriveState calcKinematics(double dX, double dR)
+    {
+        if(dR <= 0.001)
+        {
+            return new DriveState(dX, dX);
+        }
+        else
+        {
+            double delta_v = 30.0 * dR / 2.0;
+            return new DriveState(dX - delta_v, dX + delta_v);
+        }
+    }
 }

@@ -116,19 +116,19 @@ public class DriveHelper
      */
     public DriveCommand followPath(int index, Trajectory traj)
     {
-        //TODO: convert to revolutions?? Radians?? degrees?? no idea??
+        //TODO: BROKEENN maybe?
 
-        double dX = traj.getSetpoints().get(index).getdYdX(); // linear velocity in fps
-        double dR = Math.toRadians(traj.getSetpoints().get(index).getdHdS()); // rotational velocity in radians per second
+        double dX = (traj.getSetpoints().get(index).getdYdX() * 60.0 / (Constants.kWheelCircumference / 12.0)); // linear velocity in fps * 60 seconds/min *
+        double dR = Math.toRadians(traj.getSetpoints().get(index).getdHdS()) * 60.0 / Math.PI; // rotational velocity in radians per second
         double deltaV;
 
-        if(dR <= 0.001)
+        if(Math.abs(dR) <= 0.001)
         {
             return new DriveCommand(dX, dX);
         }
         else
         {
-            deltaV = 30.0 * dR / 2.0;
+            deltaV = (Constants.kTrackWidth / 2.0) * dR;
             return new DriveCommand(dX - deltaV, dX + deltaV);
         }
     }

@@ -17,6 +17,7 @@ public class Robot extends IterativeRobot
 
     public void robotInit()
     {
+        mSubsystems.add(RobotState.getInstance());
         mSubsystems.add(Drive.getInstance());
     }
 
@@ -32,12 +33,15 @@ public class Robot extends IterativeRobot
 
     public void teleopInit()
     {
-
+        for(Subsystem s : mSubsystems)
+        {
+            s.init();
+        }
     }
 
     public void teleopPeriodic()
     {
-        for(Subsystem  s : mSubsystems)
+        for(Subsystem s : mSubsystems)
         {
             s.loop();
         }
@@ -47,7 +51,10 @@ public class Robot extends IterativeRobot
 
     public void disabledInit()
     {
-
+        for(Subsystem s : mSubsystems)
+        {
+            s.end();
+        }
     }
 
     public void disabledPeriodic()
